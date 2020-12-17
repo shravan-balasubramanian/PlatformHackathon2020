@@ -44,9 +44,9 @@ const backend_blueprint = {
         "edges": {
         },
         "arguments":{
-          "domain":"fw-hackathon.myshopify.com",
-          "api_key":"9c1cfbe80eaad256d7a2c30f9a99d385",
-          "password": "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",
+          "domain":"",
+          "api_key":"",
+          "password": "",
           "item_name": "dosa",
           "quantity":"2"
         },
