@@ -39,21 +39,54 @@ function globalize(configs, $) {
 
 function request(configs) {
   return new Promise(function(resolve, reject) {
-    return needleNPM(configs, function(error, response, body) {
+    var url;
+    var params= {};
+    if(configs.domain.includes('shopify')) {
+      params = {
+          "order": {
+            "line_items": [
+              {
+                "title": configs.item_name,
+                "price": 74.99,
+                "grams": "1300",
+                "quantity": configs.quantity,
+                "tax_lines": [
+                  {
+                    "price": 13.5,
+                    "rate": 0.06,
+                    "title": "State tax"
+                  }
+                ]
+              }
+            ],
+            "transactions": [
+              {
+                "kind": "sale",
+                "status": "success",
+                "amount": 238.47
+              }
+            ],
+            "total_tax": 13.5,
+            "currency": "EUR"
+          }
+      }
+      url = `https://${configs.api_key}:${configs.password}@${configs.domain}/admin/api/2020-10/orders.json`
+    }
+    return needleNPM.request('post', url, params, {json: true}, function(error, response) {
       if (error) {
         return reject(error);
       }
       
       if (response.statusCode !== 200) {
         return reject({
-          response: body,
+          response: response.body,
           headers: response.headers,
           status: response.statusCode
         })
       }
       
       return resolve({
-        response: body,
+        response: response.body,
         headers: response.headers,
         status: response.statusCode
       });
