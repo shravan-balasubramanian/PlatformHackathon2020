@@ -1,4 +1,11 @@
 'use strict';
+const express = require('express');
+var bodyParser = require('body-parser')
+const app = express()
+const port = 3000
+
+const jsonParser = bodyParser.json()
+
 // Generators are sequential, hence an array to preserve order.
 const generators = [
   require('./lib/generators/app.js'),
@@ -18,4 +25,14 @@ function chenify(blueprint) {
   return files;
 }
 
-module.exports = chenify;
+app.post('/chenify', jsonParser, (req, res) => {
+  const blueprint = req.body;
+  const result = chenify(blueprint);
+  res.send({ result })
+});
+
+app.get('/', (req, res) => res.send('HELLO. Try /chenify'));
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+});

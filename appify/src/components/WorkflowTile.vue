@@ -16,7 +16,7 @@
       v-for="(item) in apiConfigs[thirdPartProduct]" :key="item.id"
       :label="item.label"
       :placeholder="item.placeholder"
-      :value="item.value"
+      :value="getItemValue(item)"
       @fwBlur="$emit('flowConfigChanged', { key: item.name, event: $event })"
       required
       state="normal"
@@ -67,7 +67,6 @@ export default {
     },
   },
   watch: {
-    // eslint-disable-next-line no-return-assign
     selectedBlocks(newVal) {
       this.showConfigBtn = Object.keys(newVal).includes('final_action');
     },
@@ -93,6 +92,14 @@ export default {
       };
       this.$emit('blocksAdded', { workflow: this.workflow, blocks: this.selectedBlocks });
       this.workflowFormConfigs = workflowFormConfigs(this.targetType, this.selectedBlocks);
+    },
+    getItemValue(item) {
+      const hasSubjectInWorkflow = this.selectedBlocks
+       && this.selectedBlocks.value_matcher === 'subject';
+      if (item.name === 'item' && hasSubjectInWorkflow) {
+        return this.selectedBlocks.target_value;
+      }
+      return '';
     },
   },
   mounted() {

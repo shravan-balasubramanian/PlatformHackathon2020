@@ -2,15 +2,33 @@ const apiConfigs = {
   shopify: [
     {
       id: 1,
-      label: 'Domain',
+      label: 'Shopify Domain',
       name: 'shopify_domain',
       placeholder: 'Enter your shopify domain name',
     },
     {
       id: 2,
       name: 'shopify_password',
-      label: 'Password',
+      label: 'Shopify Password',
       placeholder: 'Enter your shopify password',
+    },
+    {
+      id: 3,
+      name: 'shopify_api_key',
+      label: 'Shopify Api key',
+      placeholder: 'Enter your shopify api key',
+    },
+    {
+      id: 4,
+      name: 'item',
+      label: 'Item',
+      placeholder: 'Choose the item',
+    },
+    {
+      id: 5,
+      name: 'quantity',
+      label: 'Quantity',
+      placeholder: 'Choose the quantity',
     },
   ],
   slack: [

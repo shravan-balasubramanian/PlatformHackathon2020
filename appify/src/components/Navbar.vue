@@ -16,7 +16,8 @@
 
       <div class="button-group">
         <div class="btn" v-for="btn in buttonConfigs" :key="btn.id">
-          <fw-button :color="btn.color" size="medium" v-html="btn.label" @click="emit(btn.event)" />
+          <fw-button :color="btn.color" size="medium" v-html="btn.label"
+           @click="$emit(btn.event)" />
         </div>
       </div>
     </div>
