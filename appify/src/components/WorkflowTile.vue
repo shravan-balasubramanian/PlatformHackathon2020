@@ -5,6 +5,27 @@
         <fw-icon name="delete" color="white"></fw-icon>
       </fw-button>
     </div>
+    <div class="add-config">
+      <fw-button size="small" modal-trigger-id='config'>
+        <fw-icon name="dependent-field" color="white"></fw-icon>
+      </fw-button>
+    </div>
+    <fw-modal size="small" id='config' icon="info"
+    custom-footer title-text="Please enter the details">
+      <fw-input
+      v-for="(item) in apiConfigs.slack" :key="item.id"
+      v-bind:label="item.label"
+      v-bind:placeholder="item.placeholder"
+      v-bind:value="item.value"
+      v-on:input="item.value = $event.target.value"
+      required
+      state="normal"
+      clear-input>
+      </fw-input>
+      <span slot="footer">
+      <fw-button >Save</fw-button>
+    </span>
+    </fw-modal>
     <div class="workflow-tile">
       <div class="___container" v-for="formConfig in workflowFormConfigs" :key="formConfig.id">
         <template v-if=formConfig.show>
@@ -22,6 +43,7 @@
 <script>
 import FormField from './FormField.vue';
 import workflowFormConfigs from '../configs/workflow-form-configs';
+import apiConfigs from '../configs/api-configs';
 
 export default {
   name: 'workflowTile',
@@ -29,6 +51,7 @@ export default {
     return {
       workflowFormConfigs: [],
       targetType: '',
+      apiConfigs: [],
     };
   },
   props: {
@@ -52,8 +75,7 @@ export default {
   },
   mounted() {
     this.workflowFormConfigs = workflowFormConfigs();
-    // eslint-disable-next-line no-debugger
-    debugger;
+    this.apiConfigs = apiConfigs;
   },
 };
 </script>
@@ -68,6 +90,11 @@ export default {
   box-shadow: -1px 2px 4px #403A8F21;
   border-radius: 5px;
   .delete-btn {
+    position: relative;
+    margin-left: 5px;
+    float: right;
+  }
+  .add-config {
     position: relative;
     float: right;
   }
