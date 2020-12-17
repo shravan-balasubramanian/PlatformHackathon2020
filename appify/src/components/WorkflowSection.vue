@@ -2,7 +2,8 @@
   <div class="workflow-section">
     <div class="workflows-container" v-if="localWorkflows.length">
       <WorkflowTile v-for="workflow in localWorkflows" :key="workflow.id"
-        :workflow="workflow" @deleted="deleteWorkflow" @blockAdded="addBlockToWorkflow" />
+        :workflow="workflow" @deleted="deleteWorkflow"
+        @blocksAdded="addBlockToWorkflow" @flowConfigChanged="setFlowConfig" />
     </div>
     <div v-else class="no-workflow-message">
         Currently there is no workflow for the app. Create one
@@ -40,9 +41,17 @@ export default {
     ]),
   },
   methods: {
+    setWorkflowsInStore() {
+      const clonedNewAppConfigs = {
+        ...this.newAppConfigs,
+      };
+      clonedNewAppConfigs.workflows = this.localWorkflows;
+      this.$store.dispatch('setNewAppConfigs', clonedNewAppConfigs);
+    },
     createWorkflow() {
       const workflow = {
         id: this.localWorkflows.length + 1,
+        blocks: {},
       };
       this.localWorkflows.push(workflow);
       this.$emit('reset');
@@ -50,10 +59,17 @@ export default {
     deleteWorkflow(workflow) {
       this.localWorkflows = this.localWorkflows.filter(({ id }) => id !== workflow.id);
     },
-    addBlockToWorkflow({ workflow, block }) {
+    addBlockToWorkflow({ workflow, blocks }) {
       this.localWorkflows
         .find(({ id }) => id === workflow.id)
-        .blocks.push(block);
+        .blocks = blocks;
+    },
+    setFlowConfig({ key, event }) {
+      const clonedNewAppConfigs = {
+        ...this.newAppConfigs,
+      };
+      clonedNewAppConfigs.configs[key] = event.target.value;
+      this.$store.dispatch('setNewAppConfigs', clonedNewAppConfigs);
     },
   },
   mounted() {

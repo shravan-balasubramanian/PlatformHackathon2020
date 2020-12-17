@@ -9,8 +9,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     newAppConfigs: {
-      meta_details: {},
-      iparams: {},
+      meta_details: {
+        app_name: 'Sample App',
+        app_products: 'freshdesk',
+      },
+      configs: {},
       workflows: [],
     },
   },

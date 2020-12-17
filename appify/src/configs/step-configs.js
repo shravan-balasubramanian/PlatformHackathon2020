@@ -1,7 +1,4 @@
 import productConfigs from './product-configs';
-import appLocationsConfigs from './app-locations';
-
-const getAppLocations = () => appLocationsConfigs.freshdesk;
 
 const stepConfigs = [
   {
@@ -16,36 +13,21 @@ const stepConfigs = [
         name: 'app_name',
         label: 'App Name',
         placeholder: 'Enter the app name',
-        value: null,
+        value: '',
       },
       {
         id: 2,
         type: 'select',
         name: 'app_products',
-        label: 'Products supported',
-        placeholder: 'Select the products supported',
+        label: 'Product',
+        placeholder: 'Select the product',
         options: productConfigs,
-        value: null,
-      },
-      {
-        id: 3,
-        type: 'select',
-        name: 'app_location',
-        label: 'App Location',
-        placeholder: 'Select the app location',
-        options: getAppLocations(),
-        value: null,
+        value: '',
       },
     ],
   },
   {
     id: 2,
-    name: 'iparam_details',
-    label: 'Add installation parameters',
-    showButton: true,
-  },
-  {
-    id: 3,
     name: 'workflow_details',
     label: 'Create app workflows',
     showButton: true,

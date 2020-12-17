@@ -3,27 +3,28 @@
      <div class="label" v-if="formFieldOptions.label">
        {{formFieldOptions.label}}
      </div>
-     <fw-input
+     <el-input
       v-if="formFieldOptions.type === 'input'"
       :placeholder="formFieldOptions.placeholder"
       :disabled="formFieldOptions.disabled"
       :id="formFieldOptions.name"
       :ref="formFieldOptions.name"
-      :value="formFieldOptions.value"
-      @fwBlur="formFieldChanged(formFieldOptions.name, $event)"
+      :value="formFieldOptions.value || value || ''"
+      @input="$emit('formFieldChanged', { key: formFieldOptions.name, value: $event })"
      />
-
-     <fw-select
+     <el-select
       :placeholder="formFieldOptions.placeholder"
-      @fwChange="$emit('formFieldChanged', { key: formFieldOptions.name, event: $event })"
-      :value="formFieldOptions.value"
+      size="large"
+      @change="$emit('formFieldChanged', { key: formFieldOptions.name, value: $event })"
+      :value="formFieldOptions.value || value || ''"
       v-if="formFieldOptions.type === 'select'">
-        <fw-select-option
-        v-for="selectOption in formFieldOptions.options"
-        :key="selectOption.id || selectOption.label"
-        :value="selectOption.value || selectOption"
-        > {{selectOption.label || selectOption}}  </fw-select-option>
-      </fw-select>
+        <el-option
+          v-for="selectOption in formFieldSelectOptions"
+          :key="selectOption.id || selectOption.label"
+          :value="selectOption.value || selectOption"
+          :label="selectOption.label || selectOption"
+        />
+      </el-select>
 
   </div>
 </template>
@@ -33,11 +34,18 @@ export default {
   name: 'formField',
   props: {
     formFieldOptions: Object,
+    value: String,
   },
   computed: {
     selectValue() {
       return this.formFieldOptions.value
       || (this.formFieldOptions.options[0].value || this.formFieldOptions.options[0]);
+    },
+    formFieldSelectOptions() {
+      if (this.formFieldOptions.options) {
+        return this.formFieldOptions.options;
+      }
+      return [];
     },
   },
 };

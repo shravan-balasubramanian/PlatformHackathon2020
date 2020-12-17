@@ -19,7 +19,9 @@
               class="form-field-container"
               v-for="formField in step.form_fields"
               :key="formField.id"
+              :value="getAppMetaValue(formField)"
               :form-field-options="formField"
+              @formFieldChanged="setFieldValue"
              />
           </div>
       </template>
@@ -39,6 +41,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import FormField from './FormField.vue';
 import IparamsSection from './IparamsSection.vue';
 import WorkflowSection from './WorkflowSection.vue';
@@ -61,6 +64,9 @@ export default {
     WorkflowSection,
   },
   computed: {
+    ...mapState([
+      'newAppConfigs',
+    ]),
     isIparamStep() {
       return this.step.name === 'iparam_details';
     },
@@ -69,6 +75,13 @@ export default {
     },
   },
   methods: {
+    setAppMetaInStore(key, value) {
+      const clonedNewAppConfigs = {
+        ...this.newAppConfigs,
+      };
+      clonedNewAppConfigs.meta_details[key] = value;
+      this.$store.dispatch('setNewAppConfigs', clonedNewAppConfigs);
+    },
     stepButtonClicked() {
       if (this.isIparamStep) {
         this.iparamAddClicked = true;
@@ -76,9 +89,17 @@ export default {
         this.workflowAddClicked = true;
       }
     },
+    setFieldValue({ key, value }) {
+      this.setAppMetaInStore(key, value);
+    },
+    getAppMetaValue(formField) {
+      if (formField.value.length) {
+        return formField.value;
+      }
+      return this.newAppConfigs.meta_details[formField.name];
+    },
   },
 };
-
 </script>
 
 <style lang="scss" scoped>

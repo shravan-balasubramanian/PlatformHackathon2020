@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import {
+  Input,
   Tooltip,
   Select,
   Option,
@@ -14,6 +15,7 @@ import './assets/styles/styles.scss';
 applyPolyfills().then(() => defineCustomElements());
 
 Vue.use(Tooltip);
+Vue.use(Input);
 Vue.use(Select);
 Vue.use(Option);
 

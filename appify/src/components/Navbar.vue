@@ -31,13 +31,6 @@ export default {
       buttonConfigs: [
         {
           id: 1,
-          name: 'saveBtn',
-          label: 'Save',
-          color: 'secondary',
-          event: 'saveClicked',
-        },
-        {
-          id: 2,
           name: 'downloadBtn',
           label: 'Download App zip <fw-icon name="download" />',
           color: 'secondary',

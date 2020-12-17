@@ -16,38 +16,22 @@ const selectHtml = ({ workflow, blocks }) => {
 };
 
 const targetBlockChildren = (block) => {
-  // eslint-disable-next-line no-debugger
-  debugger;
   const recursiveSearch = ([key, val]) => {
-    // eslint-disable-next-line no-debugger
-    debugger;
     if (key === block) {
-      // eslint-disable-next-line no-debugger
-      debugger;
       return val.children;
     }
-    // eslint-disable-next-line no-debugger
-    debugger;
     return Object.entries(val.children).forEach(recursiveSearch);
   };
-  // eslint-disable-next-line no-debugger
-  debugger;
   return Object.entries(workflowConfigs).map(recursiveSearch)[0];
 };
 
 const generateHtmlFromWorkflow = (workflow) => {
   let resultant = 'When ';
   workflow.blocks.forEach((block) => {
-    // eslint-disable-next-line no-debugger
-    debugger;
     const children = targetBlockChildren(block);
-    // eslint-disable-next-line no-debugger
-    debugger;
     if (children) {
       const modifiedChildren = Object.entries(children)
         .map(([key, val]) => ({ value: key, label: val.label }));
-      // eslint-disable-next-line no-debugger
-      debugger;
       resultant += selectHtml({ workflow, blocks: modifiedChildren });
     }
   });
