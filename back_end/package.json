@@ -1,0 +1,21 @@
+{
+    "name": "dubya",
+    "version": "1.0.0",
+    "description": "Visual APP builder for the V2 Freshworks APP Framework.",
+    "engines": {
+        "node": "8.9.4"
+    },
+    "main": "app.js",
+    "scripts": {
+        "start": "node cheney/index.js"
+    },
+    "author": "Vivek Kannan",
+    "license": "ISC",
+    "dependencies": {
+        "adm-zip": "^0.5.1",
+        "buffer": "^6.0.3",
+        "express": "^4.17.1",
+        "file-saver": "^2.0.5",
+        "jszip": "^3.5.0"
+    }
+}
