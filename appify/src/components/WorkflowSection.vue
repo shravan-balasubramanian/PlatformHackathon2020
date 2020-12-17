@@ -2,7 +2,7 @@
   <div class="workflow-section">
     <div class="workflows-container" v-if="localWorkflows.length">
       <WorkflowTile v-for="workflow in localWorkflows" :key="workflow.id"
-        :workflow="workflow" />
+        :workflow="workflow" @deleted="deleteWorkflow" @blockAdded="addBlockToWorkflow" />
     </div>
     <div v-else class="no-workflow-message">
         Currently there is no workflow for the app. Create one
@@ -12,7 +12,7 @@
 
 <script>
 import { mapState } from 'vuex';
-// import WorkflowTile from './WorkflowTile.vue';
+import WorkflowTile from './WorkflowTile.vue';
 
 export default {
   name: 'workflowSection',
@@ -22,7 +22,7 @@ export default {
     };
   },
   components: {
-    // WorkflowTile,
+    WorkflowTile,
   },
   props: {
     workflowAdded: Boolean,
@@ -43,10 +43,17 @@ export default {
     createWorkflow() {
       const workflow = {
         id: this.localWorkflows.length + 1,
-        blocks: [],
       };
       this.localWorkflows.push(workflow);
       this.$emit('reset');
+    },
+    deleteWorkflow(workflow) {
+      this.localWorkflows = this.localWorkflows.filter(({ id }) => id !== workflow.id);
+    },
+    addBlockToWorkflow({ workflow, block }) {
+      this.localWorkflows
+        .find(({ id }) => id === workflow.id)
+        .blocks.push(block);
     },
   },
   mounted() {

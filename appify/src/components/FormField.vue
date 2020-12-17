@@ -1,6 +1,6 @@
 <template>
   <div class="form-field">
-     <div class="label">
+     <div class="label" v-if="formFieldOptions.label">
        {{formFieldOptions.label}}
      </div>
      <fw-input
@@ -9,15 +9,18 @@
       :disabled="formFieldOptions.disabled"
       :id="formFieldOptions.name"
       :ref="formFieldOptions.name"
+      :value="formFieldOptions.value"
+      @fwBlur="formFieldChanged(formFieldOptions.name, $event)"
      />
 
      <fw-select
       :placeholder="formFieldOptions.placeholder"
-      :value="selectValue"
+      @fwChange="$emit('formFieldChanged', { key: formFieldOptions.name, event: $event })"
+      :value="formFieldOptions.value"
       v-if="formFieldOptions.type === 'select'">
         <fw-select-option
         v-for="selectOption in formFieldOptions.options"
-        :key="selectOption.id || selectOption"
+        :key="selectOption.id || selectOption.label"
         :value="selectOption.value || selectOption"
         > {{selectOption.label || selectOption}}  </fw-select-option>
       </fw-select>

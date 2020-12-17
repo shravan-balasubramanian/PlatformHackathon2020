@@ -1,7 +1,7 @@
 <template>
   <div class="main-section-container">
     <div class="main-title">
-        Create Freshworks Marketplace App with zero to no code
+        Create Freshworks Marketplace App with low to no code
     </div>
     <div class="steps-container">
       <AppStep v-for="step in steps" :key="step.id"
