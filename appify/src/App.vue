@@ -90,7 +90,7 @@ export default {
           },
         ],
       };
-      fetch('http://localhost:3000/chenify', {
+      fetch(process.env.VUE_APP_BACKEND, {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
