@@ -13,9 +13,6 @@
     "license": "ISC",
     "dependencies": {
         "adm-zip": "^0.5.1",
-        "buffer": "^6.0.3",
-        "express": "^4.17.1",
-        "file-saver": "^2.0.5",
-        "jszip": "^3.5.0"
+        "buffer": "^6.0.3"
     }
 }

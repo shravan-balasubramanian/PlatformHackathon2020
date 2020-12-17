@@ -1,16 +1,11 @@
 'use strict';
 
 function generate(blueprint, files) {
-  let manifest = {
+  
+  const manifest = {
     'platform-version': '2.0',
-     product: {
-      "freshdesk": {}
-    }
-  };
-  let isFrontend = false;
-  for(var flow in blueprint.flows) {
-    if(flow.location === 'frontend') {
-      manifest.product.freshdesk = {
+    product: {
+      "freshdesk": {
         location: {
           ticket_background: {
             url: 'template.html'
@@ -18,8 +13,11 @@ function generate(blueprint, files) {
         }
       }
     }
-  }
+  };
 
+  if (! blueprint.flows.frontend) 
+  delete manifest.product.freshdesk.location
+  
   // Does the app have a serverless file?
   const hasServer = Object.keys(files).some(file => file.startsWith('server/'));
 

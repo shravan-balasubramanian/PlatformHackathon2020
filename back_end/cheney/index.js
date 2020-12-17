@@ -15,13 +15,20 @@ function chenify(blueprint) {
   const files = {
     'blueprint.json': JSON.stringify(blueprint, null, 2)
   };
-
+  blueprint.flows.frontend =  blueprint.flows.some( (flow) =>  flow.location == "frontend" ) ;
   generators.reduce((files, generate) => Object.assign(files, generate(blueprint, files)), files);
 
   return files;
 }
 
-
+const configs = {
+  "url":{
+    "display_name": "url",
+    "description": "Please enter the url",
+    "type": "text",
+    "required": true
+  }
+}
 
 const backend_blueprint = {
   "name": "first-app",
@@ -37,7 +44,8 @@ const backend_blueprint = {
           },
           "arguments":{
             event: "onTicketCreate"
-          }
+          },
+          "result": "result"
       },{
         "id": "b",
         "class": "request",
@@ -97,7 +105,7 @@ const frontend_blueprint = {
 const generateApp = function() {
     const app = chenify({
       flows: backend_blueprint.flows,
-      iparams:  []
+      configs: configs || []
     });
     
     const zip = new ADMZIP();
