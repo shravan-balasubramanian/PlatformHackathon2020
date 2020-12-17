@@ -1,0 +1,27 @@
+{
+  "name": "<String>",
+  "product": "<String>",
+  "iparams": {
+    "<String>": {
+      "name": "<String>",
+      "description": "<String>",
+      "required": "Boolean",
+      "type": 
+    }, // ...
+  },
+  "flows": [
+    {
+      "location": "frontend/backend",
+      "__BLOCK_ID__": {
+        "type": "<STRING>",
+        "success": "__BLOCK_ID__",
+        "fail": "__BLOCK_ID__",
+        "configs": {
+          "<String>": "<Any>" // ...
+        },
+        "top": "<Integer>",
+        "left": "<Integer>"
+      } // ...
+    }
+  ]
+}

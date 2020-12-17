@@ -1,0 +1,40 @@
+{
+  "flows": [
+    {
+      "start": "a",
+      "location": "backend",
+      "blocks": [
+        {
+          "id": "a",
+          "class": "onBackend",
+          "edges": {
+            "success": "b",
+            "failure": "c"
+          },
+          "arguments": {
+            "event": "onTicketCreate"
+          }
+        },
+        {
+          "id": "b",
+          "class": "notify",
+          "edges": {},
+          "arguments": {
+            "message": "Suceeded",
+            "type": "info"
+          }
+        },
+        {
+          "id": "c",
+          "class": "notify",
+          "edges": {},
+          "arguments": {
+            "message": "failed.",
+            "type": "danger"
+          }
+        }
+      ]
+    }
+  ],
+  "iparams": []
+}

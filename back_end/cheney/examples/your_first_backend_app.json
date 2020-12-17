@@ -1,0 +1,107 @@
+{
+  "name": "your_first_serverless_app",
+  "iparams": {},
+  "dependencies": {
+    "backend": [],
+    "frontend": []
+  },
+  "flows": [{
+    "start": "a",
+    "type": "backend",
+    "blocks":[{
+      "location": "backend",
+      "a": {
+        "class": "on",
+        "success": "b",
+        "configs": {
+          "event": "onTicketCreate"
+        }
+      },
+      "b": {
+        "class": "request",
+        "success": "c",
+        "configs": {
+          "url": "https://www.google.com/",
+          "method": "get",
+          "options": {
+            "headers": {
+              "some": "thing"
+            }
+          }
+        }
+      },
+      "c": {
+        "class": "globalize",
+        "configs": {
+          "key": "response"
+        }
+      }
+    },
+    {
+      "location": "backend",
+      "a": {
+        "class": "on",
+        "success": "b",
+        "configs": {
+          "event": "smiHandler"
+        }
+      },
+      "b": {
+        "class": "request",
+        "success": "c",
+        "configs": {
+          "url": "https://www.google.com/",
+          "method": "get",
+          "options": {
+            "headers": {
+              "some": "thing"
+            }
+          }
+        }
+      },
+      "c": {
+        "class": "globalize",
+        "configs": {
+          "key": "response"
+        }
+      }
+    },
+    {
+      "location": "frontend",
+      "a": {
+        "class": "onAppEvent",
+        "success": "b",
+        "configs": {
+          "event": "app.activated"
+        }
+      },
+      "b": {
+        "class": "request",
+        "success": "c",
+        "configs": {
+          "url": "https://www.google.com/",
+          "method": "get",
+          "options": {
+            "headers": {
+              "some": "thing"
+            }
+          }
+        }
+      },
+      "c": {
+        "class": "globalize",
+        "configs": {
+          "key": "response"
+        },
+        "success": "d"
+      },
+      "d": {
+        "class": "invoke",
+        "configs": {
+          "method": "smiHandler"
+        }
+      }
+    }]
+  }
+  ]
+}

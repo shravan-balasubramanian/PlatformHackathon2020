@@ -1,0 +1,90 @@
+{
+  "name": "hide-notifications-app",
+  "version": 1,
+  "products": ["freshdesk", "freshservice"],
+  "configs": {
+    "contact": {
+      "display_name": "Contact details",
+      "description": "Please enter the contact details",
+      "type": "text",
+      "required": true
+    },
+    "Age": {
+      "display_name": "Age",
+      "description": "Please enter your age in years",
+      "type": "number",
+      "regex": {
+        "age-limit": "[1-9][0-9]",
+        "age-limit-error": "The age must be between 10-99"
+      }
+    },
+    "contact-type": {
+      "display_name": "Contact Type",
+      "description": "Please select the contact type",
+      "type": "dropdown",
+      "options": [
+        "Phone",
+        "Email"
+      ],
+      "default_value": "Email"
+    }
+  },
+  "flows": [{
+    "start": "a",
+    "type": "frontend",
+    "blocks": [{
+      "id": "a",
+      "class": "request",
+      "position": {
+        "x": 100,
+        "y": 200
+      },
+      "edges": {
+        "success": "b",
+        "failure": "c"
+      },
+      "arguments": {
+        "url": "https://google.com/?q=geethmama",
+        "method": "get"
+      },
+      "result": "googleResponse"
+    }, {
+      "id": "b",
+      "class": "hideEntity",
+      "position": {
+        "x": 50,
+        "y": 150
+      },
+      "edges": {
+        "success": "d"
+      },
+      "arguments": {
+        "entity": "status"
+      }
+    }, {
+      "id": "c",
+      "class": "notify",
+      "position": {
+        "x": 150,
+        "y": 150
+      },
+      "edges": {},
+      "arguments": {
+        "message": "Call to google failed.",
+        "type": "danger"
+      }
+    }, {
+      "id": "d",
+      "class": "notify",
+      "position": {
+        "x": 50,
+        "y": 100
+      },
+      "edges": {},
+      "arguments": {
+        "type": "info",
+        "message": "Yeah"
+      }
+    }]
+  }]
+}
