@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import {
   Tooltip,
+  Select,
+  Option,
 } from 'element-ui';
 import { applyPolyfills, defineCustomElements } from '@freshworks/crayons/loader';
 import App from './App.vue';
@@ -12,6 +14,9 @@ import './assets/styles/styles.scss';
 applyPolyfills().then(() => defineCustomElements());
 
 Vue.use(Tooltip);
+Vue.use(Select);
+Vue.use(Option);
+
 Vue.config.ignoredElements = [/fw-\w*/];
 Vue.config.productionTip = false;
 
