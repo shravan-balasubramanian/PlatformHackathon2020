@@ -66,6 +66,13 @@ function blockToCode(flowID, block) {
 
   if (block.class === 'onBackend') {
     events.push(JSON.parse(args).event);
+    return `\nfunction ${block.id}() {
+      ${implName}(${args})
+        .then(function($) {
+          globalize("result",$.data.ticket);
+          return ${success}();
+        }, ${fail});
+    }`;
   }
 
   return `\nfunction ${block.id}() {

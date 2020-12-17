@@ -14,7 +14,7 @@ function generate(blueprint) {
 
   if (appJS) {
     return {
-      'app/app.js': appJS + fs.readFileSync(__dirname + '/../../modules/frontendmodules.js', 'utf8'),
+      'app/app.js': fs.readFileSync(__dirname + '/../../modules/frontendmodules.js', 'utf8') + appJS  ,
       'app/template.html': fs.readFileSync(__dirname + '/../../modules/template.html', 'utf8') 
     };
   }

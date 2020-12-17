@@ -31,8 +31,8 @@ function onBackend(configs) {
   };
 }
 
-function globalize(configs, $) {
-  global[configs.key] = $;
+function globalize(key, $) {
+  global[key] = $;
   
   return Promise.resolve($);
 }
@@ -84,7 +84,6 @@ function request(configs) {
           status: response.statusCode
         })
       }
-      
       return resolve({
         response: response.body,
         headers: response.headers,
@@ -105,3 +104,28 @@ function contextify(key, $) {
 }
 
 function end() {}
+
+function ifelse(configs, $) {
+  return new Promise(function(resolve, reject) {
+    switch (configs.op) {
+      case '==':
+        configs.left == configs.right ? resolve($) : reject($);
+        break;
+      case '!=':
+        configs.left != configs.right ? resolve($) : reject($);
+        break;
+      case '>':
+        configs.left > configs.right ? resolve($) : reject($);
+        break;
+      case '<':
+        configs.left < configs.right ? resolve($) : reject($);
+        break;
+      case '>=':
+        configs.left >= configs.right ? resolve($) : reject($);
+        break;
+      case '<=':
+        configs.left <= configs.right ? resolve($) : reject($);
+        break;
+    }
+  });
+}
